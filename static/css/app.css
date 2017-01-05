@@ -1,4 +1,8 @@
-
+body{
+    background-image: url("../img/BG.jpg");
+    background-attachment: fixed;
+    background-size: contain;
+}
 
 a:hover{
     color: #dd0017;
@@ -196,4 +200,16 @@ p.subcat{
 }
 .smaller{
     font-size: 0.7rem;
+}
+
+.login-form{
+    position: fixed;
+    left: 33%;
+    top: 180px;
+    padding-bottom: 20px;
+}
+
+.login-form, #detail, aside{
+    background-color: #9e9e9e;
+    opacity: 0.93;
 }

@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="large-offset-3 large-6 columns">
+        <form enctype="multipart/form-data" action="/auth/personal/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value={{ request.user.id }}>
+            <label for="id_address">Please set your address: </label>
+            {{ form.address }}
+            <label for="id_photo">Please upload your photo: </label>
+            {{ form.photo }}
+            <input class="button" type="submit" value="Зарегистрироваться">
+        </form>
+    </div>
+{% endblock %}

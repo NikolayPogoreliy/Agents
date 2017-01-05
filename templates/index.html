@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static "static/css/foundation.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'static/css/foundation-icons.css'%}">
+{#    <link rel="stylesheet" type="text/css" href="{% static 'static/css/foundation-icons.css'%}">#}
     <link rel="stylesheet" href="{% static "static/css/app.css" %}">
 </head>
 <body>
@@ -23,65 +23,9 @@
             </ul>
         </aside>
         <div class="large-10 column" id="detail">
+        {% block content %}
 
-            <div class="large-5 column">
-                <div class="row column">
-                    {% if user.is_authenticated %}
-                        <img id="user-photo" src="/media/{{ request.session.data.userPhoto }}" alt="{{ request.session.data.userFirstname }} {{ request.session.data.userLastname  }}" width="400", height="533">
-                    {% else %}
-                        <img src="/media/img/default.jpg" alt="NO PHOTO" width="400", height="533">
-                    {% endif %}
-                </div>
-                {% if user.is_authenticated %}
-                    {{ user.id }}
-                    
-                <div class="row column" id="edit-button" >
-
-                </div>
-                {% endif %}
-            </div>
-            <div class="large-7 column">
-                <div class="row column">
-                    {% if user.is_authenticated %}
-                    ID: <span id="id">{{ request.session.data.userID }}</span>   Last logined: <span id="last-login">{{ request.session.data.userLastlogin }}</span>
-                    {% else %}
-                    ID: <span class="blacked">***********</span>   Last logined: <span class="blacked">******</span>
-                    {% endif %}
-                </div>
-                <div class="row column" id="full-name">
-                    <span>Full name: </span><span id="first-name">{{ request.session.data.userFirstname }} </span>
-
-                    {% if user.is_authenticated %}
-                       <span id="last-name">{{ request.session.data.userLastname }}</span>
-                    {% else %}
-                        <span class="blacked">******</span>
-                    {% endif %}
-
-                </div>
-                {% if user.is_authenticated %}
-                    <div class="row column">E-mail: <span id="email">{{ request.session.data.userEmail }}</span></div>
-                    <div class="row column">Address: <span id="address">{{ request.session.data.userAddress }}</span></div>
-                    <div class="row column">Status: <span id="status">{{ request.session.data.userStatus }}</span></div>
-                {% else %}
-                    <div class="row column">To view the full details please log in</div>
-                    <div class="row column">
-                        <form id="login" role="form" method="post">
-                            <p id="error-login"></p>
-                            {% csrf_token %}
-                            <label>Login: </label>
-                            <input type="text" name="username">
-
-                            <label>Password: </label>
-                            <input type="password" name="password">
-
-                            <input type="submit" value="Sign In"> or
-                            <a href="/auth/register/" id="register" class="label round">Sign Up</a>
-                        </form>
-                    {% block login %}{% endblock %}
-                    </div>
-                {% endif %}
-            </div>
-
+        {% endblock %}
         </div>
 
 

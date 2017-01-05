@@ -12,7 +12,7 @@ $(document).ready(
                     success: function (data) {
                         var info = data.userInfo;
                         // $('#detail').html(data + info);
-                        var photo = '/media/'+data.userPhoto;
+                        var photo = data.userPhoto;
                         var firstName = data.userFirstname;
                         var lastName = data.userLastname;
 
@@ -48,19 +48,20 @@ $(document).ready(
                     success: function (data) {
                         if (data == 'ok'){
                             location.reload();
+                            console.log('login');
                         } else {
                             $('#error-login').html(data);
                         }
                     }
             });
         });
-        /*$('#register').click(function(){
+        $('#register').click(function(){
             //event.preventDefault();
             //var data = $(this).serialize();
             $.get('/auth/register/', function (data){
                 $('#detail').html(data);
             });
 
-        });*/
+        });
     }
 )

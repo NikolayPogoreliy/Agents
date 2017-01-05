@@ -2,13 +2,20 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 import json
 
 # Create your views here.
-def  base_view(request):
-    return render(request, 'index.html', {'users': User.objects.exclude(is_superuser=True)})
 
+
+def base_view(request):
+    print(request.user.is_authenticated())
+    if request.user.is_authenticated():
+        return render(request, 'user_content.html', {'users': User.objects.exclude(is_superuser=True).order_by('last_name','first_name')})
+    else:
+        return render(request, 'greating.html')
+
+@login_required()
 def user_view(request):
     data = {}
     request.session['data'] = data
@@ -19,7 +26,8 @@ def user_view(request):
 
         if personal:
             data['userAddress'] = personal.address
-            data['userPhoto'] = str(personal.photo)
+            data['userPhoto'] = personal.photo.url
+            print(personal.photo.url)
             data['userID'] = personal.personal_id
         else:
             data['userAddress'] = 'N.A.'
@@ -41,7 +49,7 @@ def user_view(request):
             'userFirstname': user.first_name,
             'userLastname': user.last_name,
             'userEmail': user.email,
-            'userLastlogin': str(user.last_login),
+            'userLastlogin': user.last_login.__format__('%Y-%m-%d %H:%M'),
             })
         request.session['data'] = data
     else:

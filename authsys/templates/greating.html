@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="large-5 column login-form">
+        <form id="login" role="form" method="post">
+            <p id="error-login"></p>
+            {% csrf_token %}
+            <label>Login: </label>
+            <input type="text" name="username">
+
+            <label>Password: </label>
+            <input type="password" name="password">
+
+            <input class="button large-6" type="submit" value="Sign In"> or
+{#            <a href="/auth/register/" id="reg" class="label round">Sign Up</a>#}
+            <a href="javascript:" id="register" class="label round">Sign Up</a>
+        </form>
+
+    </div>
+{% endblock %}
