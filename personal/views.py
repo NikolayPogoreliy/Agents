@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from .models import *
+from django.shortcuts import render, render_to_response
+from utils import get_user_info
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import json
@@ -9,53 +9,32 @@ import json
 
 
 def base_view(request):
-    print(request.user.is_authenticated())
+    # print(request.user.is_authenticated())
     if request.user.is_authenticated():
-        return render(request, 'user_content.html', {'users': User.objects.exclude(is_superuser=True).order_by('last_name','first_name')})
+        data = {}
+        data['users'] = User.objects.exclude(is_superuser=True).order_by('last_name', 'first_name')
+        try:
+            data['info'] = request.session['info']
+        except:
+            pass
+
+        return render(request, 'user_content.html', data)
     else:
         return render(request, 'greating.html')
 
 @login_required()
 def user_view(request):
-    data = {}
-    request.session['data'] = data
+    user_info = {}
+    request.session['info'] = user_info
     if request.method == 'GET':
         user_id = request.GET['user_id']
-        user = User.objects.select_related('personal_detail').get(id=user_id)
-        personal = getattr(user, 'personal_detail', None)
-
-        if personal:
-            data['userAddress'] = personal.address
-            data['userPhoto'] = personal.photo.url
-            print(personal.photo.url)
-            data['userID'] = personal.personal_id
-        else:
-            data['userAddress'] = 'N.A.'
-            data['userPhoto'] = 'N.A.'
-            data['userID'] = 'N.A'
-            
-
-        if user.is_staff:
-            data['userStatus'] = 'Administrator'
-        else:
-            data['userStatus'] = 'Personnel'
-
-        if request.user.is_authenticated and str(request.user.id) == str(user_id):
-            data['userInfo'] = 'me'
-        else:
-            data['userInfo'] = user_id
-        data.update({
-            'success': True,
-            'userFirstname': user.first_name,
-            'userLastname': user.last_name,
-            'userEmail': user.email,
-            'userLastlogin': user.last_login.__format__('%Y-%m-%d %H:%M'),
-            })
-        request.session['data'] = data
-    else:
-        data = {'success': False}
-    jsond = json.dumps(data)
-    return HttpResponse(jsond, content_type='application/json')
+        user_info = get_user_info(request, user_id)
+        request.session['info'] = user_info
+    # else:
+    #     data = {'success': False}
+    # jsond = json.dumps(data)
+    # return HttpResponse(jsond, content_type='application/json')
+    return render(request, 'user_content_ajaxed.html', {'info': user_info}, content_type='application/json')
 
 
 

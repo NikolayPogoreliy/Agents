@@ -15,6 +15,7 @@
         {% endif %}
     </header>
     <main class="row">
+    {% if request.user.is_authenticated %}
         <aside class="large-2 column" id="aside">
             <ul class="no-bullet">
                 {% for usr in users %}
@@ -22,6 +23,7 @@
                 {% endfor %}
             </ul>
         </aside>
+    {% endif %}
         <div class="large-10 column" id="detail">
         {% block content %}
 

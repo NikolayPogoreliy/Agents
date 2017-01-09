@@ -1,26 +1,30 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserPersonalForm
 from django.core.context_processors import csrf
-
+from utils import get_user_info
 # Create your views here.
+
+
 def login_view(request):
     #print('login_view called')
     if request.POST:
-        #print('POST')
+        data = {}
+        data.update(csrf(request))
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            request.session['user'] = user.id
+            request.session['info'] = get_user_info(request, request.user.id)
             return HttpResponse('ok', content_type='text/html')
         else:
             return HttpResponse('Wrong username/password', content_type='text/html')
     else:
         return HttpResponse('Authorizations error', content_type='text/html')
+
 
 def register_view(request):
     data = {}
@@ -34,15 +38,16 @@ def register_view(request):
             login(request, newuser)
             return redirect('/auth/personal/')
         else:
-            data['form']= newuser_form
+            data['form'] = newuser_form
 
-    return render(request,'register.html', data)
+    return render(request, 'register.html', data)
 
 
 def logout_view(request):
     logout(request)
     return redirect('/')
 
+@login_required()
 def personal_view(request):
     data = {}
     print(request.user)
@@ -53,7 +58,8 @@ def personal_view(request):
         if newuser_form.is_valid():
             newuser_form.user = request.user
             newuser_form.save()
-            return redirect('/user/?user_id={}'.format(request.user.id))
+            request.session['info'] = get_user_info(request, request.user.id)
+            return redirect('/')
         else:
             data['form'] = newuser_form
 

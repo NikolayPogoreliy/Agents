@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from utils import ImageUploaderMixin
+from mixins import ImageUploaderMixin
 
 # Create your models here.
 
