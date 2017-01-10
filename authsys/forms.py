@@ -5,7 +5,7 @@ from personal.models import Person
 
 class UserRegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        fields = [ 'first_name', 'last_name', 'email', 'username', ]
+        fields = ['first_name', 'last_name', 'email', 'username', ]
 
 
 class UserPersonalForm(ModelForm):

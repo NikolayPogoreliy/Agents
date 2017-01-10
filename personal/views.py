@@ -30,11 +30,13 @@ def user_view(request):
         user_id = request.GET['user_id']
         user_info = get_user_info(request, user_id)
         request.session['info'] = user_info
-    # else:
-    #     data = {'success': False}
-    # jsond = json.dumps(data)
-    # return HttpResponse(jsond, content_type='application/json')
-    return render(request, 'user_content_ajaxed.html', {'info': user_info}, content_type='application/json')
+    else:
+        user_info = {'success': False}
+    # print(user_info)
+    jsond = json.dumps(user_info)
+
+    return HttpResponse(jsond, content_type='application/json')
+    # return render(request, 'user_content_ajaxed.html', {'info': user_info}, content_type='application/json')
 
 
 

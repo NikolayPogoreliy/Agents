@@ -3,11 +3,13 @@
         <div class="row column">
             <img id="user-photo" src="{{ info.userPhoto }}" alt="{{ info.userFirstname }} {{ info.userLastname  }}" width="400", height="533">
         </div>
-        {% if info.userInfo == 'me'%}
-            <div class="row column" >
-                <a href="javascript:" id="edit" class="button expanded">Edit profile</a>
-            </div>
-        {% endif %}
+
+        <div class="row column" id="edit-button" >
+            {% if info.userInfo == 'me'%}
+            <a href="javascript:" id="edit" class="button expanded">Edit profile</a>
+            {% endif %}
+        </div>
+
     </div>
 
     <div class="large-7 column">

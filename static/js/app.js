@@ -26,7 +26,9 @@ $(document).ready(
             //var data = $(this).serialize();
             $.get('/auth/register/', function (data){
                 $('#detail').html(data);
+
             });
+
 
         });
         
@@ -47,7 +49,7 @@ $(document).ready(
         });*/
         
         /*$('#personal').click(function(){
-            event.preventDefault();
+            //event.preventDefault();
             //var data = $(this).serialize();
             $.get('/auth/personal/', function (data){
                 $('#detail').html(data);
@@ -62,9 +64,28 @@ $(document).ready(
                     data:{'user_id':$(this).attr('value')},
                     dataType:'json',
                     cache: false,
-                    complete: function (data) {
-                        $('#detail').html(data.responseText);
+                    success: function (data) {
+                        // console.log(data);
+                        //$('#detail').html(data.responseText);
+                        // $('#detail').load('user_content.html',data);
+                        var photo = data['userPhoto'];
+                        var firstName = data.userFirstname;
+                        var lastName = data.userLastname;
 
+                        $('#user-photo').attr({alt:firstName+' '+lastName, src:photo,});
+                        $('#first-name').html(firstName);
+                        $('#last-name').html(lastName);
+
+                        $('#last-login').html(data.userLastlogin);
+                        $('#id').html(data.userID);
+                        $('#email').html(data.userEmail);
+                        $('#address').html(data.userAddress);
+                        if (data.userInfo == 'me'){
+                            $('#edit-button').html('<button id="edit" class="button expanded" href="javascript:">Edit profile</button>')
+                        } else {
+                            $('#edit-button').html('')
+                        }
+                        $('#status').html(data.userStatus);
                     }
                 });
         }
