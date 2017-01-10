@@ -1,5 +1,8 @@
 $(document).ready(
     function () {
+
+        $(document).foundation();
+
         $('.user-list').click(get_user);
 
         $('#login').submit(function(event){
@@ -65,9 +68,6 @@ $(document).ready(
                     dataType:'json',
                     cache: false,
                     success: function (data) {
-                        // console.log(data);
-                        //$('#detail').html(data.responseText);
-                        // $('#detail').load('user_content.html',data);
                         var photo = data['userPhoto'];
                         var firstName = data.userFirstname;
                         var lastName = data.userLastname;

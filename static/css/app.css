@@ -3,7 +3,14 @@ body{
     background-attachment: fixed;
     background-size: contain;
 }
+.menu li a{
+    padding: 5px !important;
 
+}
+
+.is-drilldown-submenu-parent > a::after{
+    content: normal!important;
+}
 a:hover{
     color: #dd0017;
 }

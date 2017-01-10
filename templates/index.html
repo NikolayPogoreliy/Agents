@@ -17,9 +17,21 @@
     <main class="row">
     {% if request.user.is_authenticated %}
         <aside class="large-2 column" id="aside">
-            <ul class="no-bullet">
-                {% for usr in users %}
-                    <li><a class="user-list" value="{{ usr.id }}" href="javascript:">{{ usr.username }}</a></li> {# {% url 'user' user_id=usr.id%} #}
+{#            <ul class="no-bullet">#}
+{#                {% for usr in users %}#}
+{#                    <li><a class="user-list" value="{{ usr.id }}" href="javascript:">{{ usr.first_name }} {{ usr.last_name }}</a></li> {# {% url 'user' user_id=usr.id%} #}
+{#                {% endfor %}#}
+{#            </ul>#}
+
+            {% regroup users by last_name.0|capfirst as grouped %}
+            <ul class="vertical menu" data-accordion-menu>
+                {% for usr in grouped %}
+                    <li><a>{{ usr.grouper }}</a>
+                    <ul class="vertical menu nested">
+                        {% for item in usr.list %}
+                            <li><a class="user-list" value="{{ item.id }}" href="javascript:">{{ item.first_name }} {{ item.last_name }}</a></li>
+                        {% endfor %}
+                    </ul></li>
                 {% endfor %}
             </ul>
         </aside>
@@ -32,7 +44,7 @@
 
 
     </main>
-<script src="{% static "static/js/vendor/jquery.js" %}"></script>
+    <script src="{% static "static/js/vendor/jquery.js" %}"></script>
     <script src="{% static "static/js/vendor/what-input.js"%}"></script>
     <script src="{% static "static/js/vendor/foundation.min.js"%}"></script>
     <script src="{% static "static/js/app.js"%}"></script>
