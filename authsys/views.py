@@ -36,7 +36,7 @@ def register_view(request):
             newuser_form.save()
             newuser = authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password2'])
             login(request, newuser)
-            return redirect('/auth/personal/')
+            return redirect('/personal/')
         else:
             data['form'] = newuser_form
 
@@ -47,20 +47,4 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-@login_required()
-def personal_view(request):
-    data = {}
-    print(request.user)
-    data.update(csrf(request))
-    data['form'] = UserPersonalForm()
-    if request.POST:
-        newuser_form = UserPersonalForm(request.POST, request.FILES)
-        if newuser_form.is_valid():
-            newuser_form.user = request.user
-            newuser_form.save()
-            request.session['info'] = get_user_info(request, request.user.id)
-            return redirect('/')
-        else:
-            data['form'] = newuser_form
 
-    return render(request, 'personal.html', data)

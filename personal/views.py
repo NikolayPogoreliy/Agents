@@ -1,8 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, redirect, render_to_response
 from utils import get_user_info
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
+from personal.forms import UserPersonalForm
 import json
 
 # Create your views here.
@@ -39,5 +41,22 @@ def user_view(request):
     # return render(request, 'user_content_ajaxed.html', {'info': user_info}, content_type='application/json')
 
 
+@login_required()
+def person_create(request):
+    data = {}
+    print(request.user)
+    data.update(csrf(request))
+    data['form'] = UserPersonalForm()
+    if request.POST:
+        newuser_form = UserPersonalForm(request.POST, request.FILES)
+        if newuser_form.is_valid():
+            newuser_form.user = request.user
+            newuser_form.save()
+            request.session['info'] = get_user_info(request, request.user.id)
+            return redirect('/')
+        else:
+            data['form'] = newuser_form
+
+    return render(request, 'personal.html', data)
 
 

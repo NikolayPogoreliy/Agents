@@ -51,14 +51,15 @@ $(document).ready(
             })
         });*/
         
-        /*$('#personal').click(function(){
+        $('#edit-personaldata').click(function(){
             //event.preventDefault();
             //var data = $(this).serialize();
-            $.get('/auth/personal/', function (data){
-                $('#detail').html(data);
+            $.get('/auth/personal-edit/', function (data){
+                $('#personal-info').html(data);
             });
 
-        });*/
+        });
+        
         function get_user() {
             $.ajax(
                 {
@@ -68,22 +69,30 @@ $(document).ready(
                     dataType:'json',
                     cache: false,
                     success: function (data) {
+                        // for (key in data) {
+                        //     console.log(key);
+                        //     console.log(data[key]);
+                        // }
                         var photo = data['userPhoto'];
                         var firstName = data.userFirstname;
                         var lastName = data.userLastname;
 
                         $('#user-photo').attr({alt:firstName+' '+lastName, src:photo,});
-                        $('#first-name').html(firstName);
-                        $('#last-name').html(lastName);
+                        $('.first-name').html(firstName);
+                        $('.last-name').html(lastName);
 
                         $('#last-login').html(data.userLastlogin);
                         $('#id').html(data.userID);
                         $('#email').html(data.userEmail);
                         $('#address').html(data.userAddress);
                         if (data.userInfo == 'me'){
-                            $('#edit-button').html('<button id="edit" class="button expanded" href="javascript:">Edit profile</button>')
+                            $('#edit-button').html('<button id="edit" class="button expanded" href="javascript:">Edit profile</button>');
+                            $('#regdata').html('<a href="javascript:" title="Edit" id="edit-regdata"><i class="fi-pencil"></i></a>');
+                            $('#personaldata').html('<a href="javascript:" title="Edit" id="edit-personaldata"><i class="fi-pencil"></i></a>');
                         } else {
-                            $('#edit-button').html('')
+                            $('#edit-button').empty();
+                            $('#regdata').empty();
+                            $('#personaldata').empty();
                         }
                         $('#status').html(data.userStatus);
                     }
