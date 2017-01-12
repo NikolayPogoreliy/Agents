@@ -7,7 +7,11 @@ def get_user_info(request, user_id):
 
     if personal:
         data['userAddress'] = personal.address
-        data['userPhoto'] = personal.photo.url
+        photo = personal.photo
+        if photo:
+            data['userPhoto'] = photo.url
+        else:
+            data['userPhoto'] = 'N.A.'
         data['userID'] = personal.personal_id
     else:
         data['userAddress'] = 'N.A.'

@@ -8,7 +8,3 @@ class UserRegisterForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'username', ]
 
 
-class UserPersonalForm(ModelForm):
-    class Meta:
-        model = Person
-        fields = '__all__'

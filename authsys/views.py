@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserPersonalForm
+from .forms import UserRegisterForm
 from django.core.context_processors import csrf
 from utils import get_user_info
 # Create your views here.

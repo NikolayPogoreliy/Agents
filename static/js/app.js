@@ -54,7 +54,8 @@ $(document).ready(
         $('#edit-personaldata').click(function(){
             //event.preventDefault();
             //var data = $(this).serialize();
-            $.get('/auth/personal-edit/', function (data){
+            $.get('/personal-edit/', function (data){
+                console.log(data);
                 $('#personal-info').html(data);
             });
 

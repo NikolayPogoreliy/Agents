@@ -28,7 +28,7 @@ class Person(models.Model, ImageUploaderMixin):
 
     def set_personal_id(self):
         from random import randint
-        return str(int(sum([ord(c) for c in self.user.last_name])/len(self.user.last_name)))+'_'+str(randint(0,1000))
+        return str(int(sum([ord(c) for c in self.user.last_name])/len(self.user.first_name)))+'_'+str(randint(0,10000))
 
     class Meta:
         verbose_name = 'Пользователи'

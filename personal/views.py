@@ -4,7 +4,8 @@ from utils import get_user_info
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from personal.forms import UserPersonalForm
+from personal.forms import UserPersonalForm, UserPersonalEditForm
+from personal.models import Person
 import json
 
 # Create your views here.
@@ -60,3 +61,26 @@ def person_create(request):
     return render(request, 'personal.html', data)
 
 
+@login_required()
+def person_edit(request):
+    data = {}
+
+    data.update(csrf(request))
+    user = Person.objects.get(user=request.user.id)
+    data['form'] = UserPersonalEditForm(initial={'address': user.address, 'photo': user.photo})
+
+    if request.POST:
+        newuser_form = UserPersonalEditForm(request.POST, request.FILES)
+        if newuser_form.is_valid():
+            user.address = newuser_form.cleaned_data['address']
+            try:
+                user.photo = request.FILES['photo']
+            except:
+                pass
+            user.save()
+            request.session['info'] = get_user_info(request, request.user.id)
+            return redirect('/')
+        else:
+            data['form'] = newuser_form
+
+    return render(request, 'personal-edit.html', data)
