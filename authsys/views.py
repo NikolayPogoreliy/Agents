@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserEditForm
 from django.core.context_processors import csrf
 from utils import get_user_info
 # Create your views here.
@@ -48,3 +49,26 @@ def logout_view(request):
     return redirect('/')
 
 
+@login_required()
+def user_edit(request):
+    data = {}
+    print('user_edit called')
+    data.update(csrf(request))
+    user = User.objects.get(id=request.user.id)
+    data['form'] = UserEditForm(initial={'username': user.username,
+                                         'first_name': user.first_name,
+                                         'last_name': user.last_name})
+
+    if request.POST:
+        newuser_form = UserEditForm(request.POST)
+        if newuser_form.is_valid():
+            user.first_name = newuser_form.cleaned_data['first_name']
+            user.last_name = newuser_form.cleaned_data['last_name']
+            user.username = newuser_form.cleaned_data['username']
+            user.save()
+            request.session['info'] = get_user_info(request, request.user.id)
+            return redirect('/')
+        else:
+            data['form'] = newuser_form
+
+    return render(request, 'user-edit.html', data)

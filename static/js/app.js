@@ -1,10 +1,8 @@
 $(document).ready(
     function () {
-
-        $(document).foundation();
+        // $(document).foundation();
 
         $('.user-list').click(get_user);
-
         $('#login').submit(function(event){
             event.preventDefault();
             var data = $(this).serialize();
@@ -34,33 +32,34 @@ $(document).ready(
 
 
         });
-        
-        /*$('#get-personal').submit(function(event){
-            event.preventDefault();
-            var data = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '/auth/presonal/',
-                cache: false,
-                dataType:'html',
-                complete: function (data) {
-                    if (data == 'ok'){
-                        $('#detail').html(data);
-                    }
-                }
-            })
-        });*/
-        
-        $('#edit-personaldata').click(function(){
-            //event.preventDefault();
-            //var data = $(this).serialize();
+        $('#personal-info').on('click', '#edit-personaldata', function(){
+
             $.get('/personal-edit/', function (data){
-                console.log(data);
                 $('#personal-info').html(data);
             });
 
         });
-        
+        $('#registration-info').on('click', '#edit-regdata', function(){
+            $.get('/auth/edit/', function (data){
+                $('#registration-info').html(data);
+            });
+
+        });
+
+        $('#detail').on('click','.cancel', function () {
+            console.log('cancel clicked');
+           $.ajax({
+               type: 'GET',
+               url:'/formcancel/',
+               data:{'container':$(this).attr('value')},
+               dataType:'json',
+               cache: false,
+               success: function (data) {
+                   console.log(data);
+                   $(data.container).html(data.template);
+               }
+           });
+        });
         function get_user() {
             $.ajax(
                 {

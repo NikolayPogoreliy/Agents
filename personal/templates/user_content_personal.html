@@ -1,0 +1,8 @@
+            <div class="large-10 column"><h2>Personal data </h2></div>
+            <div class="large-2 column" id="personaldata">
+                {% if info.userInfo == 'me' %}
+                    <a href="javascript:" title="Edit" id="edit-personaldata"><i class="fi-pencil"></i></a>
+                {% endif %}
+            </div>
+            <div class="large-12 column">Address: <span id="address">{{ info.userAddress }}</span></div>
+            <div class="large-12 column">Status: <span id="status">{{ info.userStatus }}</span></div>

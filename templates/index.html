@@ -50,29 +50,12 @@
     <script src="{% static "static/js/vendor/foundation.min.js"%}"></script>
     <script src="{% static "static/js/app.js"%}"></script>
 
-{% comment %}<script>
-    $(document).ready(
-    function () {
-        $('.user-list').click(
-        function() {
-            $.ajax(
-                {
-                    type: 'GET',
-                    url:'/user/',
-                    data:{'user_id':$(this).attr('value')},
-                    dataType:'json',
-                    cache: false,
-                    success: function (data) {
-                        var info = data.userInfo;
-                        $('#detail').html(data + info);
+<script>
+    $(document).ready(function(){
+        $(document).foundation();
+    });
 
-                    },
-                });
 
-        });
-    }
-)
-
-</script>{% endcomment %}
+</script>
 </body>
 </html>

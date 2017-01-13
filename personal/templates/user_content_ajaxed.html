@@ -27,28 +27,31 @@
             </div>
         </div>
         <div class="row column" id="registration-info">
-            <div class="large-10 column"><h2>Registration data </h2></div>
-            <div class="large-2 column" id="regdata">
-                {% if info.userInfo == 'me' %}
-                    <a href="javascript:" title="Edit" id="edit-regdata"><i class="fi-pencil"></i></a>
-                {% endif %}
-            </div>
-            <div class="large-12 column" id="full-name">
-                <span>Full name: </span><span class="first-name">{{ info.userFirstname }} </span>
-                <span class="last-name">{{ info.userLastname }}</span>
-            </div>
-
-            <div class="large-12 column">E-mail: <span id="email">{{ info.userEmail }}</span></div>
+{#            <div class="large-10 column"><h2>Registration data </h2></div>#}
+{#            <div class="large-2 column" id="regdata">#}
+{#                {% if info.userInfo == 'me' %}#}
+{#                    <a href="javascript:" title="Edit" id="edit-regdata"><i class="fi-pencil"></i></a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#            <div class="large-12 column" id="full-name">#}
+{#                <span>Full name: </span><span class="first-name">{{ info.userFirstname }} </span>#}
+{#                <span class="last-name">{{ info.userLastname }}</span>#}
+{#            </div>#}
+{##}
+{#            <div class="large-12 column">E-mail: <span id="email">{{ info.userEmail }}</span></div>#}
+        {% include 'user_content_registration.html' %}
         </div>
+
         <div class="row column" id="personal-info">
-            <div class="large-10 column"><h2>Personal data </h2></div>
-            <div class="large-2 column" id="personaldata">
-                {% if info.userInfo == 'me' %}
-                    <a href="javascript:" title="Edit" id="edit-personaldata"><i class="fi-pencil"></i></a>
-                {% endif %}
-            </div>
-            <div class="large-12 column">Address: <span id="address">{{ info.userAddress }}</span></div>
-            <div class="large-12 column">Status: <span id="status">{{ info.userStatus }}</span></div>
+{#            <div class="large-10 column"><h2>Personal data </h2></div>#}
+{#            <div class="large-2 column" id="personaldata">#}
+{#                {% if info.userInfo == 'me' %}#}
+{#                    <a href="javascript:" title="Edit" id="edit-personaldata"><i class="fi-pencil"></i></a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#            <div class="large-12 column">Address: <span id="address">{{ info.userAddress }}</span></div>#}
+{#            <div class="large-12 column">Status: <span id="status">{{ info.userStatus }}</span></div>#}
+            {% include 'user_content_personal.html' %}
         </div>
 
     </div>

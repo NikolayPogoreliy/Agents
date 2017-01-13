@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, render_to_response
+from django.template.loader import get_template
 from utils import get_user_info
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -84,3 +85,26 @@ def person_edit(request):
             data['form'] = newuser_form
 
     return render(request, 'personal-edit.html', data)
+
+
+def canceling(request):
+    user_info = {}
+    data = {}
+    container = ''
+    request.session['info'] = user_info
+    if request.method == 'GET':
+        container = request.GET['container']
+        user_info = get_user_info(request, request.user.id)
+        request.session['info'] = user_info
+    if container == 'registration':
+        data['template'] = get_template('user_content_registration.html').render(context={'info': user_info})
+    else:
+        data['template'] = get_template('user_content_personal.html').render(context={'info':user_info})
+    data['container'] = '#' + container + '-info'
+    # else:
+    #     user_info = {'success': False}
+    # print(user_info)
+    jsond = json.dumps(data)
+    #
+    return HttpResponse(jsond, content_type='application/json')
+    # return render(request, 'personal-edit.html', data)
