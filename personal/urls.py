@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^user/$', 'personal.views.user_view', name='user'),
     url(r'^personal/$', 'personal.views.person_create', name='create-person'),
     url(r'^personal-edit/$', 'personal.views.person_edit', name='edit-person'),
-    url(r'^formcancel/$', 'personal.views.canceling', name='edit-person'),
+    url(r'^formcancel/$', 'personal.views.canceling', name='edit-cancel'),
     url(r'^$', 'personal.views.base_view', name='home'),
 
 ]
