@@ -5,7 +5,8 @@ $(document).ready(
         $('.user-list').click(get_user);
         $('#login').submit(function(event){
             event.preventDefault();
-            var data = $(this).serialize();
+             var data = $(this).serialize();
+
             $.ajax(
                 {
                     type:'POST',
@@ -39,13 +40,34 @@ $(document).ready(
             });
 
         });
+        $('.info').on('submit', '#edit-regdata-form', function(event){
+            event.preventDefault();
+            var data = $('form').serialize();
+            $.ajax({
+                type: 'POST',
+                url:'/auth/edit/',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    
+                    $('#registration-info').html(data.template);
+                    $('.first-name').html(data.info.userFirstname);
+                    $('.last-name').html(data.info.userLastname);
+                    $('#username').html(data.info.username)
+                }
+            });
+            // $.get('/personal-edit/', function (data){
+            //     $('#personal-info').html(data);
+            // });
+
+        });
         $('#registration-info').on('click', '#edit-regdata', function(){
             $.get('/auth/edit/', function (data){
                 $('#registration-info').html(data);
             });
 
         });
-
         $('#detail').on('click','.cancel', function () {
             console.log('cancel clicked');
            $.ajax({

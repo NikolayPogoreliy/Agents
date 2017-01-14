@@ -12,18 +12,24 @@
     <header class="row column">
         {% if request.user.is_authenticated %}
             <div class="large-2 column"><a href="{% url 'logout' %}">Logout</a></div>
-            <div class="large-3 column">you logined as <a href="javascript:" class="user-list" value="{{ request.user.id }}">{{ request.user.username }}</a></div>
+            <div class="large-3 column">
+                <ul class="dropdown menu" data-dropdown-menu data-closing-time="100">
+                    <li class="block"><a id="username" href="">You logined as {{ request.user.username }}</a>
+                        <ul class="menu">
+                            <li class="block"><a href="javascript:" class="user-list" value="{{ request.user.id }}"><span>View my profile</span></a></li>
+                            <li class="block"><a href="{% url 'password-change' %}">CHANGE PASSWORD</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+            </div>
+
         {% endif %}
     </header>
     <main class="row">
     {% if request.user.is_authenticated %}
         <aside class="large-2 column" id="aside">
-{#            <ul class="no-bullet">#}
-{#                {% for usr in users %}#}
-{#                    <li><a class="user-list" value="{{ usr.id }}" href="javascript:">{{ usr.first_name }} {{ usr.last_name }}</a></li> {# {% url 'user' user_id=usr.id%} #}
-{#                {% endfor %}#}
-{#            </ul>#}
-
             {% regroup users by last_name.0|capfirst as grouped %}
             <ul class="vertical menu" data-accordion-menu>
                 {% for usr in grouped %}

@@ -1,4 +1,4 @@
-        <form enctype="multipart/form-data" id="user-edit" action="{% url 'edit-user' %}" method="POST">
+        <form enctype="multipart/form-data" id="edit-regdata-form" {# action="{% url 'edit-user' %}"#} method="POST" role="form">
             {% csrf_token %}
 {#            <input type="hidden" name="user" value={{ request.user.id }}>#}
 {#             <label for="id_username">Please upload your photo: </label>#}

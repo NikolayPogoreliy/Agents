@@ -1,14 +1,11 @@
-        <form enctype="multipart/form-data" id="personal-edit" action="{% url 'edit-person' %}" method="POST">
+        <form enctype="multipart/form-data" id="personal-edit" action="{% url 'edit-person' %}" method="POST" >
             {% csrf_token %}
-{#            <input type="hidden" name="user" value={{ request.user.id }}>#}
              <label for="id_photo">Please upload your photo: </label>
             {{ form.photo }}
-            {{ form.errors }}
+
             <label for="id_address">Please set your address: </label>
             {{ form.address }}
-
-{#            <label>Image: </label>#}
-{#            <input type="file" name="image"/>#}
+            {{ form.errors }}
             <input class="button" type="submit" value="Save">
             <a class="button alert cancel" href="javascript:" value="personal">Cancel</a>
         </form>

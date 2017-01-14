@@ -33,5 +33,6 @@ def get_user_info(request, user_id):
         'userLastname': user.last_name,
         'userEmail': user.email,
         'userLastlogin': user.last_login.__format__('%Y-%m-%d %H:%M'),
+        'username': user.username,
     })
     return data

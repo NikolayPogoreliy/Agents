@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
+from django.contrib.auth import views as authviews
 from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('authsys.urls')),
-    url(r'^', include('personal.urls'))
+    url(r'^password-change-done/$', 'django.contrib.auth.views.password_change_done', name='password_change_done'),
+    url(r'^password_reset/$', authviews.password_reset, name='password_reset'),
+    url(r'^password_reset/done/$', authviews.password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        authviews.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', authviews.password_reset_complete, name='password_reset_complete'),
+    url(r'^', include('personal.urls')),
 ]
 
 

@@ -3,16 +3,20 @@
 {% block content %}
     <div class="large-5 column login-form">
         <form id="login" role="form" method="post">
-            <p id="error-login"></p>
+            <div class="large-12 column" id="error-login"></div>
             {% csrf_token %}
-            <label>Login: </label>
-            <input type="text" name="username">
+            <div class="large-3 column"><label for="id_login_username">Login: </label></div>
+            <div class="large-12 column"><input id="id_login_username" type="text" name="username"></div>
 
-            <label>Password: </label>
-            <input type="password" name="password">
+            <div class="large-3 column"><label for="id_login_password">Password: </label></div>
+            <div class="large-3 large-offset-6 column"><a class="small" href="{% url 'password_reset' %}">Forgot password?</a></div>
+            <div class="large-12 column"><input id="id_login_password" type="password" name="password"></div>
 
-            <input class="button large-6" type="submit" value="Sign In"> or
-            <a href="javascript:" id="register" class="label">Sign Up</a>
+            <div class="large-12 column">
+                <input class="button large-6" type="submit" value="Sign In"> or
+                <a href="javascript:" id="register" class="label">Sign Up</a>
+            </div>
+
         </form>
 
     </div>

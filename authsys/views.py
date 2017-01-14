@@ -1,11 +1,15 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.template.loader import get_template
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as authviews
 from .forms import UserRegisterForm, UserEditForm
 from django.core.context_processors import csrf
+from django.core.mail import send_mail
 from utils import get_user_info
+import json
 # Create your views here.
 
 
@@ -52,6 +56,7 @@ def logout_view(request):
 @login_required()
 def user_edit(request):
     data = {}
+    render_data = {}
     print('user_edit called')
     data.update(csrf(request))
     user = User.objects.get(id=request.user.id)
@@ -62,13 +67,25 @@ def user_edit(request):
     if request.POST:
         newuser_form = UserEditForm(request.POST)
         if newuser_form.is_valid():
-            user.first_name = newuser_form.cleaned_data['first_name']
-            user.last_name = newuser_form.cleaned_data['last_name']
-            user.username = newuser_form.cleaned_data['username']
+            user.first_name = request.POST['first_name']#newuser_form.cleaned_data['first_name']
+            user.last_name = request.POST['last_name']#newuser_form.cleaned_data['last_name']
+            user.username = request.POST['username']#newuser_form.cleaned_data['username']
             user.save()
-            request.session['info'] = get_user_info(request, request.user.id)
-            return redirect('/')
+            user_info = get_user_info(request, request.user.id)
+            request.session['info'] = user_info
+            render_data['template'] = get_template('user_content_registration.html').render(context={'info': user_info})
+            render_data['info'] = user_info
+            jsond = json.dumps(render_data)
+            # return redirect('/')
+            return HttpResponse(jsond, content_type='application/json')
         else:
             data['form'] = newuser_form
 
     return render(request, 'user-edit.html', data)
+
+
+def password_changing(request):
+    data={}
+    #send_mail('subj','mess','from@example.com',['to@example.com'], fail_silently=False)
+    data.update(csrf(request))
+    return authviews.password_change(request)#,  post_change_redirect='/auth/logout')
