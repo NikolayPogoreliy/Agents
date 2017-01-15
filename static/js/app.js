@@ -50,7 +50,7 @@ $(document).ready(
                 cache: false,
                 dataType: 'json',
                 success: function (data) {
-                    
+                    console.log(data);
                     $('#registration-info').html(data.template);
                     $('.first-name').html(data.info.userFirstname);
                     $('.last-name').html(data.info.userLastname);

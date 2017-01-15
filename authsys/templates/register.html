@@ -3,6 +3,7 @@
         <form action="/auth/register/" method="POST">
             {% csrf_token %}
             {{ form }}
+            {{ form.errors }}
             <input class="button" type="submit" value="Зарегистрироваться">
         </form>
     </div>

@@ -1,14 +1,10 @@
-        <form enctype="multipart/form-data" id="edit-regdata-form" {# action="{% url 'edit-user' %}"#} method="POST" role="form">
+        <form enctype="multipart/form-data" id="edit-regdata-form" method="POST" role="form">
             {% csrf_token %}
-{#            <input type="hidden" name="user" value={{ request.user.id }}>#}
-{#             <label for="id_username">Please upload your photo: </label>#}
-{#            {{ form.username }}#}
-{#            {{ form.errors }}#}
-{#            <label for="id_first_name">Please set your address: </label>#}
-{#            {{ form.address }}#}
             {{ form }}
-{#            <label>Image: </label>#}
-{#            <input type="file" name="image"/>#}
-            <input class="button" type="submit" value="Save">
-            <a class="button alert cancel" href="javascript:" value="registration">Cancel</a>
+
+            <div class="large-12 column">
+                <input class="button" type="submit" value="Save">
+                <a class="button alert cancel" href="javascript:" value="registration">Cancel</a>
+            </div>
+
         </form>
