@@ -1,6 +1,6 @@
-{% extends 'index.html' %}
-
-{% block content %}
+{#{% extends 'index.html' %}#}
+{##}
+{#{% block content %}#}
     <div class="large-offset-3 large-6 columns">
         <form enctype="multipart/form-data" id="personal" action="/personal/" method="POST">
             {% csrf_token %}
@@ -9,7 +9,7 @@
             {{ form.address }}
             <label for="id_photo">Please upload your photo: </label>
             {{ form.photo }}
-            <input class="button" type="submit" value="Зарегистрироваться">
+            <input class="button" type="submit" value="NEXT">
         </form>
     </div>
-{% endblock %}
+{#{% endblock %}#}

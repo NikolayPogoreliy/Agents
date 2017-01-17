@@ -45,6 +45,7 @@ def user_view(request):
 @login_required()
 def person_create(request):
     """ Представление для ввода личных данных пользователя"""
+    print('')
     data = {}
     data.update(csrf(request))
     data['form'] = UserPersonalForm()

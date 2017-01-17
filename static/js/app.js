@@ -1,3 +1,4 @@
+// $(document).foundation();
 $(document).ready(
     function () {
         // $(document).foundation();
@@ -5,8 +6,7 @@ $(document).ready(
         $('.user-list').click(get_user);
         $('#login').submit(function(event){
             event.preventDefault();
-             var data = $(this).serialize();
-
+            var data = $(this).serialize();
             $.ajax(
                 {
                     type:'POST',
@@ -23,16 +23,8 @@ $(document).ready(
                     }
             });
         });
-        $('#register').click(function(){
-            //event.preventDefault();
-            //var data = $(this).serialize();
-            $.get('/auth/register/', function (data){
-                $('#detail').html(data);
 
-            });
-
-
-        });
+        
         $('#personal-info').on('click', '#edit-personaldata', function(){
 
             $.get('/personal-edit/', function (data){
@@ -82,6 +74,58 @@ $(document).ready(
                }
            });
         });
+
+        $('#greating_page').on('submit', '#register-form', function (event) {
+            event.preventDefault();
+            var data = $(this).serialize();
+            console.log('register submit clicked');
+            $.ajax({
+                type: 'POST',
+                url: '/auth/register/',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                success: function (data){
+                    console.log('register form sumbitted');
+                    $('#offCanvasSignup').html(data.template);
+                }
+            });
+        });
+
+        $('#LoginButton').click(function () {
+            var target = $('#offCanvasLogin');
+            target.toggleClass('hide canvas-hide-left', false);
+            target.toggleClass('canvas-show-left', true);
+
+        });
+        $('#SignupButton').click(function(){
+            //event.preventDefault();
+            //var data = $(this).serialize();
+            var target = $('#offCanvasSignup');
+            target.toggleClass('canvas-hide-right hide', false);
+            target.toggleClass('canvas-show-right', true);
+            $.get('/auth/register/', 'json', function (data){
+                target.html(data.template);
+
+            });
+        });
+        $(document).mousedown(function (eventObject) {
+            var targetLeft = $('#offCanvasLogin');
+            var targetRight = $('#offCanvasSignup');
+            if (targetLeft.outerWidth() || targetRight.outerWidth()) {
+                // var target = $('#offCanvasLogin');
+                 console.log('click; ',eventObject.pageX);
+                 console.log('right position: ',targetRight.position().left);
+                 console.log('body width: ',$('body').innerWidth());
+                if (targetLeft.css('display') != 'none' && targetLeft.position().left >= 0 && eventObject.pageX > targetLeft.outerWidth()) {
+                    targetLeft.toggleClass('canvas-hide-left canvas-show-left');
+                }
+                if (targetRight.css('display') != 'none' && targetRight.position().left < $('body').innerWidth() && eventObject.pageX < targetRight.position().left) {
+                    targetRight.toggleClass('canvas-hide-right canvas-show-right');
+                }
+            }
+        });
+
         function get_user() {
             $.ajax(
                 {

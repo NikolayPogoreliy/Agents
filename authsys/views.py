@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as authviews
 from .forms import UserRegisterForm, UserEditForm
+from personal.forms import UserPersonalForm
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from utils import get_user_info
@@ -35,20 +36,40 @@ def login_view(request):
 
 def register_view(request):
     """Приложение для регистрации нового пользователя"""
+    print('register_view called')
     data = {}
+    redirect_data = {}
     data.update(csrf(request))
     data['form'] = UserRegisterForm() # Форма для регистрации нового пользователя
     if request.POST:
+        print('POST')
+
         newuser_form = UserRegisterForm(request.POST)
         if newuser_form.is_valid(): # Если все данные валидны - логинимся и переходим к добавлению личных данных
-            newuser_form.save()
+            newuser_form.cleaned_data['last_name'].capitalize()
+            newuser_data = newuser_form.save(commit=False)      # Создаем но не сохраняем пользователя
+            newuser_data.last_name = newuser_data.last_name.capitalize()    # Делаем первую букву фамилии ззаглавной
+            newuser_data.first_name = newuser_data.first_name.capitalize()  # Делаем первую букву имени заглавной
+            newuser_data.save()                                             # Сохраняем в БД
             newuser = authenticate(username=newuser_form.cleaned_data['username'],
                                    password=newuser_form.cleaned_data['password2'])
             login(request, newuser)
-            return redirect('/personal/') # Добавление личных данных пользователя
+            # return redirect('/personal/') # Добавление личных данных пользователя
+            data['form'] = UserPersonalForm()
+
+            redirect_data['template'] = get_template('personal.html').render(request=request, context=data)
+
         else:
+            print('not valid')
             data['form'] = newuser_form
-    return render(request, 'register.html', data)
+            redirect_data['template'] = get_template('register.html').render(request=request, context=data)
+        # jsond = json.dumps(redirect_data)
+        # return HttpResponse(jsond, content_type='application/json')
+    else:
+        redirect_data['template'] = get_template('register.html').render(request=request, context=data)
+    jsond = json.dumps(redirect_data)
+    return HttpResponse(jsond, content_type='application/json')
+    # return render(request, 'register.html', data)
 
 
 def logout_view(request):

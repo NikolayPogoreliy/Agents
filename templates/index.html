@@ -11,13 +11,14 @@
 <body>
     <header class="row column">
         {% if request.user.is_authenticated %}
-            <div class="large-2 column"><a href="{% url 'logout' %}">Logout</a></div>
-            <div class="large-3 column">
+{#            <div class="large-2 column"><a href="{% url 'logout' %}">Logout</a></div>#}
+            <div class="large-3 large-offset-9 column">
                 <ul class="dropdown menu" data-dropdown-menu data-closing-time="100">
                     <li class="block"><a id="username" href="">You logined as {{ request.user.username }}</a>
                         <ul class="menu">
                             <li class="block"><a href="javascript:" class="user-list" value="{{ request.user.id }}"><span>View my profile</span></a></li>
-                            <li class="block"><a href="{% url 'password-change' %}">CHANGE PASSWORD</a></li>
+                            <li class="block"><a href="{% url 'password-change' %}">Change Password</a></li>
+                            <li class="block"><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -42,8 +43,11 @@
                 {% endfor %}
             </ul>
         </aside>
-    {% endif %}
         <div class="large-10 column" id="detail">
+    {% else %}
+        <div class="large-12 column" id="greating_page">
+    {% endif %}
+
         {% block content %}
 
         {% endblock %}
