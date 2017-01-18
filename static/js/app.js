@@ -96,6 +96,7 @@ $(document).ready(
             var target = $('#offCanvasLogin');
             target.toggleClass('hide canvas-hide-left', false);
             target.toggleClass('canvas-show-left', true);
+            $(this).css({'visibility':'hidden'});
 
         });
         $('#SignupButton').click(function(){
@@ -104,24 +105,28 @@ $(document).ready(
             var target = $('#offCanvasSignup');
             target.toggleClass('canvas-hide-right hide', false);
             target.toggleClass('canvas-show-right', true);
+            $(this).css({'visibility':'hidden'});
             $.get('/auth/register/', 'json', function (data){
                 target.html(data.template);
 
             });
         });
+
         $(document).mousedown(function (eventObject) {
             var targetLeft = $('#offCanvasLogin');
             var targetRight = $('#offCanvasSignup');
             if (targetLeft.outerWidth() || targetRight.outerWidth()) {
                 // var target = $('#offCanvasLogin');
-                 console.log('click; ',eventObject.pageX);
-                 console.log('right position: ',targetRight.position().left);
-                 console.log('body width: ',$('body').innerWidth());
+                //  console.log('click; ',eventObject.pageX);
+                //  console.log('right position: ',targetRight.position().left);
+                //  console.log('body width: ',$('body').innerWidth());
                 if (targetLeft.css('display') != 'none' && targetLeft.position().left >= 0 && eventObject.pageX > targetLeft.outerWidth()) {
                     targetLeft.toggleClass('canvas-hide-left canvas-show-left');
+                    $('#LoginButton').css({'visibility':'visible'});
                 }
                 if (targetRight.css('display') != 'none' && targetRight.position().left < $('body').innerWidth() && eventObject.pageX < targetRight.position().left) {
                     targetRight.toggleClass('canvas-hide-right canvas-show-right');
+                    $('#SignupButton').css({'visibility':'visible'});
                 }
             }
         });

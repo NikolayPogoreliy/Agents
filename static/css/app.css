@@ -1,8 +1,34 @@
+@font-face {
+    font-family: MyraidRegular;
+    src: url("MyriadProRegular.ttf") format("truetype");
+}
+@font-face {
+    font-family: MyriadSemibold;
+    src: url("MyriadProSemiBold.ttf") format("truetype");
+}
+
 body{
     background-image: url("../img/BG.jpg");
     background-attachment: fixed;
-    background-size: contain;
+    background-size: cover;
+    font-family: MyraidRegular, sans-serif;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: MyriadSemibold, sans-serif;
+}
+.button{
+    border-radius: 0;
+}
+.shield-header{color: white;
+    font-size: 70px;
+    font-weight: bolder;
+}
+.shield-container{
+    position: relative;
+    /*height: 25%; */
+    vertical-align: bottom;
+}
+.shield-logo{position: relative;}
 .smaller-text{
     font-size: smaller;
 }
@@ -13,12 +39,6 @@ body{
 .is-drilldown-submenu-parent > a::after{
     content: normal!important;
 }
-/*.is-accordion-submenu-parent > a::after{*/
-    /*content: url("../img/icons/pencil.jpg")!important;*/
-/*}*/
-/*.is-accordion-submenu-parent > a{*/
-    /*width: 10px*/
-/*}*/
 a:hover{
     color: #dd0017;
 }
@@ -34,11 +54,18 @@ a:hover{
 }
 .login-form{
     position: fixed;
-    top: 33%;
-    padding-bottom: 20px;
+    top: 35%;
+    padding:0 20%;
+    /*padding-bottom: 20px;*/
+}
+.register-form{
+    position: fixed;
+    top: 20%;
+    padding:0 20%;
+    /*padding-bottom: 20px;*/
 }
 #detail, aside{
-    background-color: #9e9e9e;
+    /*background-color: #9e9e9e;*/
     opacity: 0.93;
 }
 .block{
@@ -47,12 +74,22 @@ a:hover{
 .block a:after{
     content: normal !important;
 }
+.left-padding-0{
+    padding-left: 0;
+}
 .greating-buttons{
     position: fixed;
-    left: 30%;
-    top: 80%;
+    top: 70%;
     padding-bottom: 20px;
 }
+.greating-buttons .button{
+    border: solid white 2px;
+    padding: 0.63rem;
+}
+/*.greating-form{padding-right: 15%;}*/
+/*.greating-form > input {margin-bottom: 10px;}*/
+.bg1{background-color: #8a8a8a; opacity: 0.8;}
+.login-canvas, .signup-canvas, .info {background-color: rgba(166,178,174, 0.55);}
 .login-canvas, .signup-canvas{
     position: fixed;
     top: 1.5%;
@@ -60,9 +97,18 @@ a:hover{
     width: 33%;
     overflow-y: auto;
     display: inline-block;
-    background-color: #e5e5e5;
     z-index: 4;
 }
+.login-canvas label, .login-canvas a,.signup-canvas label, .signup-canvas a {color: white !important; line-height: 1.3;}
+.login-canvas input, .signup-canvas input {
+    background-color: transparent;
+    border: solid white 2px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    height: 1.87rem;
+    font-size: 14px;
+}
+.login-canvas .button, .signup-canvas .button {padding: 0 1rem;}
 .login-canvas{
     left: 0;
 }
@@ -72,6 +118,8 @@ a:hover{
 .hide{
     display: none;
 }
+.helptext{font-size: 11px; color: white;}
+form > br {display: none;}
 .canvas-hide-left{
     /*display: none;*/
     -moz-animation: hiding-left 1s linear forwards;
@@ -100,10 +148,12 @@ a:hover{
     color: #b10012;
     font-weight: bold;
 }
+
+
 @keyframes hiding-left {
     /*0% {display: none;}*/
     0% {transform: none;}
-    100% {transform: translate(-42%, 0);}
+    100% {transform: translate(-200%, 0);}
     /*100% {display: none;}*/
 }
 @-moz-keyframes hiding-left {
@@ -120,19 +170,19 @@ a:hover{
 }
 @keyframes show-left {
     /*0% {display: none;}*/
-    0% {transform: translate(-42%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }
 @-moz-keyframes show-left {
     /*0% {display: none;}*/
-    0% {transform: translate(-42%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }
 @-webkit-keyframes show-left {
     /*0% {display: none;}*/
-    0% {transform: translate(-42%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }
@@ -156,19 +206,19 @@ a:hover{
 }
 @keyframes show-right {
     /*0% {display: none;}*/
-    0% {transform: translate(110%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }
 @-moz-keyframes show-right {
     /*0% {display: none;}*/
-    0% {transform: translate(110%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }
 @-webkit-keyframes show-right {
     /*0% {display: none;}*/
-    0% {transform: translate(110%, 0);}
+    0% {transform: translate(0, 110%);}
     100% {transform: none;}
     /*100% {display: none;}*/
 }

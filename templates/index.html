@@ -3,18 +3,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Agents</title>
+    <link rel="shortcut icon" href="{% static 'static/img/icons/Ico_SHIELD.png' %}">
     <link rel="stylesheet" href="{% static "static/css/foundation.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/foundation-icons.css'%}">
     <link rel="stylesheet" href="{% static "static/css/app.css" %}">
 </head>
 <body>
-    <header class="row column">
+    <header class="row">
+        <div class="row column shield-container">
+            <br>
+            <br>
+            <div class="large-2 column"><img class="shield-logo" src="{% static 'static/img/icons/logo.png' %}" alt="SHIELD LOGO" width="90px"></div>
+            <div class="large-3 large-offset-2 column"><h1 class="shield-header">S.H.I.E.L.D.</h1></div>
+
         {% if request.user.is_authenticated %}
 {#            <div class="large-2 column"><a href="{% url 'logout' %}">Logout</a></div>#}
-            <div class="large-3 large-offset-9 column">
+            <div class="large-3 large-offset-2 column">
                 <ul class="dropdown menu" data-dropdown-menu data-closing-time="100">
-                    <li class="block"><a id="username" href="">You logined as {{ request.user.username }}</a>
+                    <li class="block">My profile
                         <ul class="menu">
                             <li class="block"><a href="javascript:" class="user-list" value="{{ request.user.id }}"><span>View my profile</span></a></li>
                             <li class="block"><a href="{% url 'password-change' %}">Change Password</a></li>
@@ -22,16 +29,16 @@
                         </ul>
                     </li>
                 </ul>
-
-
             </div>
 
         {% endif %}
+        </div>
     </header>
     <main class="row">
     {% if request.user.is_authenticated %}
-        <aside class="large-2 column" id="aside">
+        <aside class="large-2 large-offset-1 column info" id="aside">
             {% regroup users by last_name.0|capfirst as grouped %}
+            <h4> Agents </h4>
             <ul class="vertical menu" data-accordion-menu>
                 {% for usr in grouped %}
                     <li><a>{{ usr.grouper }}</a>
@@ -43,7 +50,7 @@
                 {% endfor %}
             </ul>
         </aside>
-        <div class="large-10 column" id="detail">
+        <div class="large-8 large-offset-1 column" id="detail">
     {% else %}
         <div class="large-12 column" id="greating_page">
     {% endif %}
