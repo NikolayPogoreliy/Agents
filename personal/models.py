@@ -7,8 +7,8 @@ from mixins import ImageUploaderMixin
 
 class Person(models.Model, ImageUploaderMixin):
     user = models.OneToOneField(User, verbose_name='Пользователь', related_name='personal_detail')
-    address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Адресс')
-    photo = models.ImageField(upload_to=ImageUploaderMixin.set_path, default='', blank=True, null=True, verbose_name='Фото')
+    address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Address')
+    photo = models.ImageField(upload_to=ImageUploaderMixin.set_path, default='', blank=True, null=True, verbose_name='Photo')
     personal_id = models.CharField(max_length=20, blank=True, editable=False)
 
     def __str__(self):
@@ -31,5 +31,5 @@ class Person(models.Model, ImageUploaderMixin):
         return str(int(sum([ord(c) for c in self.user.last_name])/len(self.user.first_name)))+'_'+str(randint(0,10000))
 
     class Meta:
-        verbose_name = 'Пользователи'
-        verbose_name_plural = 'Пользователи'
+        verbose_name = 'Users'
+        verbose_name_plural = 'Users'

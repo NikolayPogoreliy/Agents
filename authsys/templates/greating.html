@@ -1,57 +1,35 @@
 {% extends 'index.html' %}
-
+{% block header %}
+    <h1 class="shield-header-greating font-90">S.H.I.E.L.D.</h1>
+{% endblock %}
 {% block content %}
-{#    <div class="large-5 column login-form">#}
-{#        <form id="login" role="form" method="post">#}
-{#            <div class="large-12 column" id="error-login"></div>#}
-{#            {% csrf_token %}#}
-{#            <div class="large-3 column"><label for="id_login_username">Login: </label></div>#}
-{#            <div class="large-12 column"><input id="id_login_username" type="text" name="username"></div>#}
-{##}
-{#            <div class="large-3 column"><label for="id_login_password">Password: </label></div>#}
-{#            <div class="large-3 large-offset-6 column"><a class="small" href="{% url 'password_reset' %}">Forgot password?</a></div>#}
-{#            <div class="large-12 column"><input id="id_login_password" type="password" name="password"></div>#}
-{##}
-{#            <div class="large-12 column">#}
-{#                <input class="button large-6" type="submit" value="Sign In"> or#}
-{#                <a href="javascript:" id="register" class="label">Sign Up</a>#}
-{#            </div>#}
-{##}
-{#        </form>#}
-{##}
-
-{#    </div>#}
-
-
-{#<div class="row large-up-3">#}
-
-    <div class="login-canvas canvas-hide-left hide" id="offCanvasLogin">
-        <div class="large-12 columns text-center"><h3> Log In </h3></div>
+{#  Left Off-Canvas panel whith Login-form  #}
+    <div class="canvas login-canvas canvas-hide-left hide" id="offCanvasLogin">
+{#        <div class="large-12 columns text-center"><h2> Log In </h2></div>#}
         <div class="large-12 columns login-form">
             <form id="login" role="form" method="post">
                 <div class="large-12 column" id="error-login"></div>
                 {% csrf_token %}
                 <div class="large-3 column"><label for="id_login_username">Login: </label></div>
                 <div class="large-12 column"><input id="id_login_username" type="text" name="username"></div>
-
                 <div class="large-3 column"><label for="id_login_password">Password: </label></div>
-                <div class="large-4 large-offset-5 column"><a class="smaller-text" href="{% url 'password_reset' %}">Forgot password?</a></div>
+                <div class="large-5 large-offset-4 column"><a class="smaller-text" href="{% url 'password_reset' %}">Forgot password?</a></div>
                 <div class="large-12 column"><input id="id_login_password" type="password" name="password"></div>
-
                 <div class="large-12 column">
                     <input class="button large-6" type="submit" value="Sign In">
                 </div>
             </form>
         </div>
     </div>
-
+{#  Buttons, that opens Login-panel and Signup-panel  #}
     <div class="large-12 column greating-buttons">
-            <div class="large-1 large-offset-4 button bg1" id="LoginButton">SIGN IN</div>
-            <button type="button" class="large-1 large-offset-1 button bg1" id="SignupButton">SIGN UP</button>
+        <div class="large-3 large-offset-3 column">
+            <div class="large-6 button bg1" id="LoginButton">SIGN IN</div>
+        </div>
+         <div class="large-3 column end">
+            <button type="button" class="large-6 button bg1" id="SignupButton">SIGN UP</button>
+        </div>
     </div>
-
-    <div class="signup-canvas canvas-hide-right hide" id="offCanvasSignup">
-
-    </div>
-{#</div>#}
+{#  Right Off-Canvas panel whith SignUp-form (AJAXed)  #}
+    <div class="canvas signup-canvas canvas-hide-right hide" id="offCanvasSignup"></div>
 {% endblock %}

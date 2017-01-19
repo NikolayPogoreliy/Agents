@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.core.context_processors import csrf
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as authviews
 from .forms import UserRegisterForm, UserEditForm
 from personal.forms import UserPersonalForm
-from django.core.context_processors import csrf
-from django.core.mail import send_mail
+
 from utils import get_user_info
-from django.db.utils import IntegrityError
 import json
 # Create your views here.
 
@@ -36,14 +35,11 @@ def login_view(request):
 
 def register_view(request):
     """Приложение для регистрации нового пользователя"""
-    print('register_view called')
     data = {}
     redirect_data = {}
     data.update(csrf(request))
     data['form'] = UserRegisterForm() # Форма для регистрации нового пользователя
     if request.POST:
-        print('POST')
-
         newuser_form = UserRegisterForm(request.POST)
         if newuser_form.is_valid(): # Если все данные валидны - логинимся и переходим к добавлению личных данных
             newuser_form.cleaned_data['last_name'].capitalize()
@@ -63,8 +59,6 @@ def register_view(request):
             print('not valid')
             data['form'] = newuser_form
             redirect_data['template'] = get_template('register.html').render(request=request, context=data)
-        # jsond = json.dumps(redirect_data)
-        # return HttpResponse(jsond, content_type='application/json')
     else:
         redirect_data['template'] = get_template('register.html').render(request=request, context=data)
     jsond = json.dumps(redirect_data)
@@ -88,12 +82,13 @@ def user_edit(request):
     # Плучаем данные пользователя
     user = User.objects.get(id=request.user.id)
     # Заполняем форму текущими значениями
-    data['form'] = UserEditForm(instance=user)
+    data['form'] = UserEditForm(initial={'first_name':user.first_name,'last_name':user.last_name, 'username':user.username})
     if request.POST:
         newuser_form = UserEditForm(request.POST)
         if newuser_form.is_valid():
-            user.first_name = request.POST['first_name']    # Обновляем данные пользователя
-            user.last_name = request.POST['last_name']      #
+            print('valid')
+            user.first_name = request.POST['first_name'].capitalize()    # Обновляем данные пользователя
+            user.last_name = request.POST['last_name'].capitalize()      #
             user.username = request.POST['username']        #
             user.save()                                     # И сохраняем пользователя
             user_info = get_user_info(request, request.user.id)  # Заново собираем все данные пользователя

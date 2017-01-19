@@ -1,7 +1,6 @@
-{#{% extends 'index.html' %}#}
-{##}
-{#{% block content %}#}
-    <div class="large-offset-3 large-6 columns">
+{# Form for personal data adding #}
+{#    <div class="large-12 column"><h2 class="text-center">Personal Data</h2></div>#}
+    <div class="columns login-form">
         <form enctype="multipart/form-data" id="personal" action="/personal/" method="POST">
             {% csrf_token %}
             <input type="hidden" name="user" value={{ request.user.id }}>
@@ -9,7 +8,6 @@
             {{ form.address }}
             <label for="id_photo">Please upload your photo: </label>
             {{ form.photo }}
-            <input class="button" type="submit" value="NEXT">
+            <input class="button" type="submit" value="Next">
         </form>
     </div>
-{#{% endblock %}#}

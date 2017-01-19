@@ -1,4 +1,7 @@
 {% extends 'index.html' %}
+{% block header %}
+    <h1 class="shield-header font-90">S.H.I.E.L.D.</h1>
+{% endblock %}
 {% block content %}
     {% if info %}
         {% include 'user_content_ajaxed.html' %}

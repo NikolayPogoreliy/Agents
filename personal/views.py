@@ -1,12 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.template.loader import get_template
-from utils import get_user_info
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from personal.forms import UserPersonalForm, UserPersonalEditForm
 from personal.models import Person
+from utils import get_user_info
 import json
 
 # Create your views here.
@@ -45,7 +45,6 @@ def user_view(request):
 @login_required()
 def person_create(request):
     """ Представление для ввода личных данных пользователя"""
-    print('')
     data = {}
     data.update(csrf(request))
     data['form'] = UserPersonalForm()
