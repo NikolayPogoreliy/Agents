@@ -16,7 +16,6 @@
             <br>
             <br>
             <div class="large-1 large-offset-1 column"><img class="shield-logo" src="{% static 'static/img/icons/logo.png' %}" alt="SHIELD LOGO" width="90px"></div>
-{#            <div class="large-4 large-offset-2 column end"><h1 class="shield-header font-90">S.H.I.E.L.D.</h1></div>#}
             <div class="large-4 large-offset-2 column end">{% block header %}{% endblock %}</div>
         {% if request.user.is_authenticated %}
             <div class="large-2 column" id="my-profile">
