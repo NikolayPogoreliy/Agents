@@ -115,4 +115,7 @@
       <column name="seq" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>
     </table>
   </data-source>
+  <data-source name="MySQL - agents_db@127.0.0.1" uuid="c262cae8-6694-42c3-8bba-e2ba14352117">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>
