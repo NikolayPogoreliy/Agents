@@ -15,8 +15,8 @@
         <div class="row column shield-container">
             <br>
             <br>
-            <div class="large-1 large-offset-1 column"><img class="shield-logo" src="{% static 'static/img/icons/logo.png' %}" alt="SHIELD LOGO" width="90px"></div>
-            <div class="large-4 large-offset-2 column end">{% block header %}{% endblock %}</div>
+            <div class="small-2 small-centered offest-4 medium-2 medium-centered large-1 large-offset-1 large-float-left column"><img class="shield-logo" src="{% static 'static/img/icons/Logo.png' %}" alt="SHIELD LOGO" width="90px"></div>
+            <div class="small-12 text-center medium-12 medium-text-center large-4 large-offset-2 column end">{% block header %}{% endblock %}</div>
         {% if request.user.is_authenticated %}
             <div class="large-2 column" id="my-profile">
                 <ul class="dropdown menu" data-dropdown-menu data-closing-time="100">

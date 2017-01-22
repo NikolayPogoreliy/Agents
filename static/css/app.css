@@ -6,13 +6,15 @@
     font-family: MyriadSemibold;
     src: url("fonts/MyriadProSemiBold.ttf") format("truetype");
 }
-
 body{
     background-image: url("../img/BG.jpg");
     background-attachment: fixed;
     background-size: cover;
     font-family: MyraidRegular, sans-serif;
-    font-size: 13px;
+    /*font-size: 13px;*/
+}
+main, header {
+    /*font-size: 13px;*/
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: MyriadSemibold, sans-serif;
@@ -29,22 +31,75 @@ h3{
 h4{
     font-size: 15px;
 }
-.font-90{
-    font-size: 90px;
+.small-font-big{
+    font-size: 30px;
 }
-.font-60{
-    font-size: 60px;
+.font-12{
+    font-size: 10px;
+}
+.small-greating-buttons{
+    position: absolute;
+    top: 60%;
+}
+@media screen and (min-width: 40em){
+    .medium-font-big{
+        font-size: 54px;
+    }
+    .medium-font-60{
+        font-size: 30px;
+    }
+    .medium-greating-buttons {
+        position: absolute;
+        top: 60%;
+        /*padding-left: 0;*/
+        /*margin-right: 100px;*/
+    }
+}
+@media screen and (min-width: 64em){
+    .large-font-big{
+        font-size: 90px;
+    }
+    .large-font-60{
+        font-size: 60px;
+    }
+    .large-greating-buttons{
+        position: absolute;
+        top: 73%;
+        /*padding-left: 0;*/
+        /*margin-right: 100px;*/
+        /*display: inline-block;*/
+    }
+    .shield-header-greating{
+        color: white;
+        font-weight: bolder;
+        position: absolute;
+        top: 29%;
+        left: 35.5%;
+    }
+    #LoginButton{
+        margin-left: 20%;
+        /*padding-left: 10%;*/
+    }
+     #SignupButton{
+        margin-left: 5%;
+        /*padding-left: 10%;*/
+    }
+    .large-canvas{
+        width: 33%!important;
+    }
+    .large-signup-canvas{
+    left: 67%!important;
+}
+    .large-float-left{
+        float: left!important;
+    }
 }
 .shield-header{
     color: white;
     font-weight: bolder;
 }
-.shield-header-greating{
+.shield-container h1{
     color: white;
-    font-weight: bolder;
-    position: fixed;
-    top: 29%;
-    left: 35.5%;
 }
 .smaller-text{
     font-size: smaller;
@@ -74,12 +129,12 @@ a:hover{
     border-bottom: #505050 dotted 1px;
 }
 .login-form{
-    position: fixed;
+    position: absolute;
     top: 35%;
     padding:0 20%;
 }
 .register-form{
-    position: fixed;
+    position: absolute;
     top: 20%;
     padding:0 20%;
 
@@ -102,15 +157,6 @@ a:hover{
 .left-padding-0{
     padding-left: 0;
 }
-.greating-buttons{
-    position: fixed;
-    top: 73%;
-    padding-left: 0;
-    margin-right: 100px;
-}
-#LoginButton{
-    margin-left: 20%;
-}
 .greating-buttons .button, .edit .button{
     border: solid white 2px;
     padding: 0.63rem;
@@ -123,21 +169,21 @@ a:hover{
     background-color: #8a8a8a;
     opacity: 0.8;
 }
-.canvas,
-.info {
-    background-color: rgba(166,178,174, 0.55);
-}
 #info, aside{
     min-height: 237px;
 }
 #my-profile h3{
     color:white;
 }
+.canvas,
+.info {
+    background-color: rgba(166,178,174, 0.55);
+}
 .canvas{
-    position: fixed;
+    position: absolute;
     top: 1.5%;
     height: 97%;
-    width: 33%;
+    width: 66%;
     overflow-y: auto;
     display: inline-block;
     z-index: 4;
@@ -174,7 +220,7 @@ a:hover{
     left: 0;
 }
 .signup-canvas{
-    left: 67%;
+    left: 34%;
 }
 .hide{
     display: none;
@@ -213,7 +259,6 @@ form:not(#personal-edit) > br {
 aside li a{
     font-size: 18px;
 }
-
 @keyframes hiding-left {
     0% {transform: none;}
     100% {transform: translate(-200%, 0);}

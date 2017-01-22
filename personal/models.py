@@ -8,7 +8,7 @@ from mixins import ImageUploaderMixin
 class Person(models.Model, ImageUploaderMixin):
     user = models.OneToOneField(User, verbose_name='Пользователь', related_name='personal_detail')
     address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Address')
-    photo = models.ImageField(upload_to=ImageUploaderMixin.set_path, default='', blank=True, null=True, verbose_name='Photo')
+    photo = models.ImageField(upload_to=ImageUploaderMixin.set_path, default='img/default.jpg', blank=True, null=True, verbose_name='Photo')
     personal_id = models.CharField(max_length=20, blank=True, editable=False)
 
     def __str__(self):
