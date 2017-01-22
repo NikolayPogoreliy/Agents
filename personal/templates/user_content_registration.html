@@ -4,9 +4,13 @@
             <a href="javascript:" title="Edit" id="edit-regdata"><i class="fi-pencil"></i></a>
         {% endif %}
     </div>
+    <div class="large-12 column left-padding-0" id="username">
+        {% if info.userInfo == 'me' %}
+            <span>Username: {{ info.username }}</span>
+        {% endif %}
+    </div>
     <div class="large-12 column left-padding-0" id="full-name">
         <span>Full name: </span><span class="first-name">{{ info.userFirstname }} </span>
         <span class="last-name">{{ info.userLastname }}</span>
     </div>
-
     <div class="large-12 column left-padding-0">E-mail: <span id="email">{{ info.userEmail }}</span></div>

@@ -83,6 +83,7 @@ def user_edit(request):
     user = User.objects.get(id=request.user.id)
     # Заполняем форму текущими значениями
     data['form'] = UserEditForm(initial={'first_name':user.first_name,'last_name':user.last_name, 'username':user.username})
+    data['info'] = user.email
     if request.POST:
         newuser_form = UserEditForm(request.POST)
         if newuser_form.is_valid():

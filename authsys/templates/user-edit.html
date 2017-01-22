@@ -5,9 +5,10 @@
             {% csrf_token %}
             {{ form }}
             <div class="large-12 column left-padding-0">
+                <label for="id_email">E-mail: </label><div class="large12 column pseudo-input" id="id_email">{{ info }}</div></div>
+            <div class="large-12 column left-padding-0">
                 <input class="button" type="submit" value="Save">
                 <a class="button cancel" href="javascript:" value="registration">Cancel</a>
             </div>
-
         </form>
     </div>

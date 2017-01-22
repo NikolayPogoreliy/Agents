@@ -11,7 +11,7 @@ body{
     background-attachment: fixed;
     background-size: cover;
     font-family: MyraidRegular, sans-serif;
-    /*font-size: 13px;*/
+    overflow-x:hidden;
 }
 main, header {
     /*font-size: 13px;*/
@@ -41,6 +41,9 @@ h4{
     position: absolute;
     top: 60%;
 }
+#greating_page{
+    overflow-y:hidden;
+}
 @media screen and (min-width: 40em){
     .medium-font-big{
         font-size: 54px;
@@ -48,6 +51,9 @@ h4{
     .medium-font-60{
         font-size: 30px;
     }
+    .medium-signup-canvas{
+    left: 34%!important;
+}
     .medium-greating-buttons {
         position: absolute;
         top: 60%;
@@ -88,7 +94,7 @@ h4{
         width: 33%!important;
     }
     .large-signup-canvas{
-    left: 67%!important;
+    left: 67% !important;
 }
     .large-float-left{
         float: left!important;
@@ -202,7 +208,8 @@ a:hover{
 }
 .canvas input:not(#id_photo),
 .edit input:not(#id_photo),
-.edit .button {
+.edit .button,
+.pseudo-input{
     background-color: transparent;
     border: solid white 2px;
     margin-bottom: 10px;
@@ -211,6 +218,9 @@ a:hover{
     font-size: 14px;
     font-weight: 600;
     padding: 5px;
+}
+.pseudo-input{
+    color: #282828;
 }
 .edit .button {
     padding: 5px 10px !important;
@@ -232,6 +242,16 @@ a:hover{
 form:not(#personal-edit) > br {
     display: none;
 }
+.canvas-hide-right{
+    -moz-animation: hiding-right 1s linear forwards;
+    -webkit-animation: hiding-right 1s linear forwards;
+    animation: hiding-right 1s linear forwards;
+}
+.canvas-show-right{
+    -moz-animation: show-right 0.2s linear forwards;
+    -webkit-animation: show-right 0.2s linear forwards;
+    animation: show-right 0.2s linear forwards;
+}
 .canvas-hide-left{
     -moz-animation: hiding-left 1s linear forwards;
     -webkit-animation: hiding-left 1s linear forwards;
@@ -241,16 +261,6 @@ form:not(#personal-edit) > br {
     -moz-animation: show-left 0.2s linear forwards;
     -webkit-animation: show-left 0.2s linear forwards;
     animation: show-left 0.2s linear forwards;
-}
-.canvas-hide-right{
-    -moz-animation: hiding-left 1s linear forwards;
-    -webkit-animation: hiding-left 1s linear forwards;
-    animation: hiding-right 1s linear forwards;
-}
-.canvas-show-right{
-    -moz-animation: show-right 0.2s linear forwards;
-    -webkit-animation: show-right 0.2s linear forwards;
-    animation: show-right 0.2s linear forwards;
 }
 .errorlist{
     color: #b10012;
@@ -285,15 +295,15 @@ aside li a{
 }
 @keyframes hiding-right {
     0% {transform: none;}
-    100% {transform: translate(110%, 0);}
+    100% {transform:translate(110%, 0);}
 }
 @-moz-keyframes hiding-right {
     0% {transform: none;}
-    100% {transform: translate(110%, 0);}
+    100% {transform:translate(110%, 0);}
 }
 @-webkit-keyframes hiding-right {
     0% {transform: none;}
-    100% {transform: translate(110%, 0);}
+    100% {transform:translate(110%, 0);}
 }
 @keyframes show-right {
     0% {transform: translate(0, 110%);}

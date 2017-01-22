@@ -29,15 +29,23 @@ def base_view(request):
 @login_required()
 def user_view(request):
     """ Представление для получения данных запрошеного пользователя"""
+    data = {}
     user_info = {}
+    curr_user = request.session['info']['userInfo']
     request.session['info'] = user_info     # Обновляем данные пользователя в сессии (стираем)
     if request.method == 'GET':
-        user_id = request.GET['user_id']
+        user_id = request.GET.get('user_id', request.user.id)
         user_info = get_user_info(request, user_id)     # Получаем данные запрошенного пользователя
-        request.session['info'] = user_info             # и сохраняем их в сессии
+        data['user_info'] = user_info
+        if curr_user == 'me':   # Если уходим со своей страницы - обновляем содержимое соответствующих разделов
+            data['reg_template'] = get_template('user_content_registration.html').render()
+            data['pers_template'] = get_template('user_content_personal.html').render()
+        request.session['info'] = user_info  # и сохраняем данные пользователя в сессии
     else:
-        user_info = {'success': False}
-    jsond = json.dumps(user_info)           # Сериализуем и отдаем AJAXу
+        # user_info = {'success': False}
+        data['success'] = False
+    # jsond = json.dumps(user_info)           # Сериализуем и отдаем AJAXу
+    jsond = json.dumps(data)
     return HttpResponse(jsond, content_type='application/json')
 
 

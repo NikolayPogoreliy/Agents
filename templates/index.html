@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="{% static 'static/img/icons/Ico_SHIELD.png' %}">
     <link rel="stylesheet" type="text/css" href="{% static "static/css/foundation.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/foundation-icons.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static "static/css/app.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "static/css/app.css" %}">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
                 <ul class="dropdown menu" data-dropdown-menu data-closing-time="100">
                     <li class="block"><h3>My profile</h3>
                         <ul class="menu">
-                            <li class="block"><a href="javascript:" class="user-list" value="{{ request.user.id }}"><span>View my profile</span></a></li>
+                            <li class="block"><a href="javascript:" class="user-list" {# value="{{ request.user.id }}" #}><span>View my profile</span></a></li>
                             <li class="block"><a href="{% url 'password-change' %}">Change Password</a></li>
                             <li class="block"><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>

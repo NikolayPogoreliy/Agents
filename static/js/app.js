@@ -112,24 +112,29 @@ $(document).ready(
                     dataType:'json',
                     cache: false,
                     success: function (data) {
-                        var photo = data['userPhoto'];
-                        var firstName = data.userFirstname;
-                        var lastName = data.userLastname;
+                        var photo = data.user_info['userPhoto'];
+                        var firstName = data.user_info.userFirstname;
+                        var lastName = data.user_info.userLastname;
+                        if (data.reg_template){$('#registration-info').html(data.reg_template);}
+                        if (data.pers_template){$('#personal-info').html(data.pers_template);}
                         $('#user-photo').attr({alt:firstName+' '+lastName, src:photo,});
                         $('.first-name').html(firstName);
                         $('.last-name').html(lastName);
-                        $('#last-login').html(data.userLastlogin);
-                        $('#id').html(data.userID);
-                        $('#email').html(data.userEmail);
-                        $('#address').html(data.userAddress);
-                        if (data.userInfo == 'me'){
+                        $('#last-login').html(data.user_info.userLastlogin);
+                        $('#id').html(data.user_info.userID);
+                        $('#email').html(data.user_info.userEmail);
+                        $('#address').html(data.user_info.userAddress);
+                        if (data.user_info.userInfo == 'me'){
                             $('#regdata').html('<a href="javascript:" title="Edit" id="edit-regdata"><i class="fi-pencil"></i></a>');
                             $('#personaldata').html('<a href="javascript:" title="Edit" id="edit-personaldata"><i class="fi-pencil"></i></a>');
+                            var username_str = '<span>Username: '+ data.user_info.username+'</span>'
+                            $('#username').html(username_str);
                         } else {
                             $('#regdata').empty();
                             $('#personaldata').empty();
+                             $('#username').empty();
                         }
-                        $('#status').html(data.userStatus);
+                        $('#status').html(data.user_info.userStatus);
                     }
                 });
         }
